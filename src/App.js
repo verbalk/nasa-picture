@@ -5,49 +5,32 @@ import { Header } from './components/header';
 import styled from 'styled-components';
 
 export function App() {
-  const [images, setImages] = useState([]);
+  const [imageInfo, setImageInfo] = useState(null);
 
-  const getImages = () => {
-    axios
-      .get(
-        'https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol=1000&page=2&api_key=RAgi4NFaaCnMPmtH9axvbxuKxPlUw12mM4qiPL0e'
-      )
-      .then((e) => {
-        setImages(e.data.photos);
-        console.log(e);
-      });
+  const getImageInfo = async () => {
+    const response = await axios.get(
+      'https://api.nasa.gov/planetary/apod?api_key=5q6uswo7lQPq6HcC05xDRdcoikRkPCVdIqk6mbxe&date=2000-03-23'
+    );
+    setImageInfo(response.data);
   };
 
   useEffect(() => {
-    getImages();
+    getImageInfo();
   }, []);
 
   return (
-    <div>
-      <Header />
-      <Container>
-        <Card>1</Card>
-        <Card>2</Card>
-        <Card>3</Card>
-        <Card>4</Card>
-        <Card>5</Card>
-        <Card>6</Card>
-      </Container>
-    </div>
+    <RootDiv>
+      <button>어제의 사진 보기</button>
+      {imageInfo && <img src={imageInfo.url} />}
+      <button>내일의 사진 보기</button>
+    </RootDiv>
   );
 }
 
-const Container = styled.ul`
+const RootDiv = styled.div`
+  width: 100%;
+  height: 100%;
   display: flex;
-  -webkit-flex-wrap: wrap;
-  flex-wrap: wrap;
-`;
-
-const Card = styled.li`
-  background: tomato;
-  padding: 5px;
-  width: 100px;
-  height: 100px;
-  margin: 10px;
-  color: white;
+  justify-content: space-around;
+  align-items: center;
 `;

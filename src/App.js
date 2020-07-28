@@ -5,18 +5,24 @@ import { Header } from './components/header';
 import styled from 'styled-components';
 
 export function App() {
+  const [date, setDate] = useState(new Date());
   const [imageInfo, setImageInfo] = useState(null);
+  // ?부터 시작 변경되는 부분임 getFullYear / getMonth / getDate new Date('2020-07-23')
+  // year, month, 0 이면 마지막 0 은 날짜 1이 없으므로 전날로 감 ㅜㄷ
 
   const getImageInfo = async () => {
-    const response = await axios.get(
-      'https://api.nasa.gov/planetary/apod?api_key=5q6uswo7lQPq6HcC05xDRdcoikRkPCVdIqk6mbxe&date=2000-03-23'
-    );
+    const response = await axios.get('https://api.nasa.gov/planetary/apod', {
+      params: {
+        api_key: 'api_key=5q6uswo7lQPq6HcC05xDRdcoikRkPCVdIqk6mbxe&date',
+        date: '2000-03-24',
+      },
+    });
     setImageInfo(response.data);
   };
 
   useEffect(() => {
     getImageInfo();
-  }, []);
+  }, []); // []는 값이 없어서 댑스가 한번만 돌아감
 
   return (
     <RootDiv>

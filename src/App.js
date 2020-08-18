@@ -75,7 +75,7 @@ export function App() {
           <p>{imageInfo && imageInfo.title}</p>
         </Container>
       </PolaRoid>
-
+      {isLoading && '로딩중이야'}
       <MoveButton onClick={내일}>
         <FontAwesomeIcon icon={faAngleRight} />
       </MoveButton>

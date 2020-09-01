@@ -8,10 +8,10 @@ function lastDay(year, month) {
   return new Date(year, month, 0).getDate();
 }
 export function App() {
-  const [date, setDate] = useState(new Date());
-  const [imageInfo, setImageInfo] = useState(null);
+  const [날짜, 날짜세팅] = useState(new Date());
+  const [이미지정보, 이미지정보세팅] = useState(null);
   const getImageInfo = async (date) => {
-    const response = await axios.get('https://api.nasa.gov/planetary/apod', {
+    const 반응 = await axios.get('https://api.nasa.gov/planetary/apod', {
       params: {
         api_key: '5q6uswo7lQPq6HcC05xDRdcoikRkPCVdIqk6mbxe',
         // date: `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`,
